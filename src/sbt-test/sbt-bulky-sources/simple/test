@@ -1,3 +1,6 @@
 > +show bulkySources
 > +show bulkySources 0
 -> +show bulkySources -1
+-> +show bulkySources 1 2
+-> +show bulkySources boom
+-> +show bulkySources 3d
