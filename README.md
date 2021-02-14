@@ -3,11 +3,11 @@
 ![Scala CI](https://github.com/rokinsky/sbt-bulky-sources/workflows/Scala%20CI/badge.svg)
 [![codecov](https://codecov.io/gh/rokinsky/sbt-bulky-sources/branch/master/graph/badge.svg?token=RAZKN2QQ52)](https://codecov.io/gh/rokinsky/sbt-bulky-sources)
 
-The plugin works with main and test sources and shows a list of "large" sources, sorted in descending order by `LOC`([lines of code](https://en.wikipedia.org/wiki/Source_lines_of_code)) value.
+The plugin works with main and test sources and shows a list of "large" sources, sorted in descending order by the number of lines.
 
 ## Usage
 
-`<threshold>` is an optional unsigned integer specifying the minimum `LOC` value for files
+`<threshold>` is an optional unsigned integer specifying the minimum number of lines for files
 
 ### Compile configuration
 ```bash

@@ -25,7 +25,7 @@ object BulkySourcesPlugin extends AutoPlugin {
       Def.task {
         files
           .map(file => (IO.readLines(file).size + 1, file))
-          .filter { case (loc, _) => loc >= threshold }
+          .filter { case (numberOfLines, _) => numberOfLines >= threshold }
           .sorted
           .reverse
       }
