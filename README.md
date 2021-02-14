@@ -3,7 +3,7 @@
 ![Scala CI](https://github.com/rokinsky/sbt-bulky-sources/workflows/Scala%20CI/badge.svg)
 [![codecov](https://codecov.io/gh/rokinsky/sbt-bulky-sources/branch/master/graph/badge.svg?token=RAZKN2QQ52)](https://codecov.io/gh/rokinsky/sbt-bulky-sources)
 
-The plugin works with main and test sources and shows a list of "large" sources, sorted in descending order by the number of lines.
+The plugin shows a list of "large" source files, sorted in descending order by the number of lines.
 
 ## Usage
 
