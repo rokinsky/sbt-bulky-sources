@@ -14,7 +14,6 @@ object BulkySourcesPlugin extends AutoPlugin {
 
   private val bulkyThresholdParser: Def.Initialize[Parser[Int]] =
     Def.setting {
-      // When parsing a single unsigned int, bulkyThresholdInLines is used as a fallback for empty input
       Space ~> token(NatBasic, "<threshold>") ?? bulkyThresholdInLines.value
     }
 
