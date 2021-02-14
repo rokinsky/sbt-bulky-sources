@@ -24,7 +24,7 @@ jobs:
         key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
 
     - name: Run tests
-      run: sbt coverage test
+      run: sbt coverage test scripted
 
     - name: Coverage Report
       run: sbt coverageReport
