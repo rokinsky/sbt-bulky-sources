@@ -37,6 +37,5 @@ object BulkySourcesPlugin extends AutoPlugin {
     bulkyThresholdInLines  := 100
   )
 
-  override def requires = plugins.JvmPlugin
-  override def trigger  = allRequirements
+  override def trigger: PluginTrigger = allRequirements
 }
