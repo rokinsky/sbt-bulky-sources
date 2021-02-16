@@ -6,7 +6,6 @@ lazy val root = (project in file("."))
     name               := "sbt-bulky-sources",
     organization       := "com.evolutiongaming",
     version            := "0.1-SNAPSHOT",
-    sbtPlugin          := true,
     scriptedLaunchOpts := Seq("-Xmx1G", s"-Dplugin.version=${version.value}"),
     scriptedBufferLog  := false
   )
