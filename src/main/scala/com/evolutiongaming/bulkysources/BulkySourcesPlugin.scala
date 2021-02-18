@@ -6,8 +6,10 @@ import sbt.complete.DefaultParsers._
 import sbt.complete._
 
 object BulkySourcesPlugin extends AutoPlugin {
+  type BulkySource = (Int, File)
+
   object autoImport {
-    lazy val bulkySources          = inputKey[Seq[(Int, File)]]("Gives a list of bulky sources with threshold.")
+    lazy val bulkySources          = inputKey[Seq[BulkySource]]("Gives a list of bulky sources with threshold.")
     lazy val bulkyThresholdInLines = SettingKey[Int]("default value for bulky sources")
   }
   import autoImport._
@@ -17,7 +19,7 @@ object BulkySourcesPlugin extends AutoPlugin {
       Space ~> token(NatBasic, "<threshold>") ?? bulkyThresholdInLines.value
     }
 
-  private def bulkySourcesTask(configuration: Configuration): Def.Initialize[InputTask[Seq[(Int, File)]]] =
+  private def bulkySourcesTask(configuration: Configuration): Def.Initialize[InputTask[Seq[BulkySource]]] =
     Def.inputTaskDyn {
       val threshold = bulkyThresholdParser.parsed
       val files     = (configuration / sources).value
@@ -26,8 +28,7 @@ object BulkySourcesPlugin extends AutoPlugin {
         files
           .map(file => (IO.readLines(file).size + 1, file))
           .filter { case (numberOfLines, _) => numberOfLines >= threshold }
-          .sorted
-          .reverse
+          .sortWith(Ordering[BulkySource].gt)
       }
     }
 
@@ -37,5 +38,6 @@ object BulkySourcesPlugin extends AutoPlugin {
     bulkyThresholdInLines  := 100
   )
 
-  override def trigger: PluginTrigger = allRequirements
+  override def requires: Plugins       = Plugins.empty
+  override def trigger:  PluginTrigger = allRequirements
 }
