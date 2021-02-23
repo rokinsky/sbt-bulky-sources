@@ -10,7 +10,7 @@ object BulkySourcesPlugin extends AutoPlugin {
 
   object autoImport {
     lazy val bulkySources          = inputKey[Seq[BulkySource]]("Gives a list of bulky sources with threshold.")
-    lazy val bulkyThresholdInLines = SettingKey[Int]("default value for bulky sources")
+    lazy val bulkyThresholdInLines = settingKey[Int]("default value for bulky sources")
   }
   import autoImport._
 
