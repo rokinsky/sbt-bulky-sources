@@ -19,23 +19,23 @@ object BulkySourcesPlugin extends AutoPlugin {
       Space ~> token(NatBasic, "<threshold>") ?? bulkyThresholdInLines.value
     }
 
-  private def bulkySourcesTask(configuration: Configuration): Def.Initialize[InputTask[Seq[BulkySource]]] =
-    Def.inputTaskDyn {
+  private def bulkySourcesTask: Def.Initialize[InputTask[Seq[BulkySource]]] =
+    Def.inputTask {
       val threshold = bulkyThresholdParser.parsed
-      val files     = (configuration / sources).value
+      val files     = sources.value
 
-      Def.task {
-        files
-          .map(file => (IO.readLines(file).size + 1, file))
-          .filter { case (numberOfLines, _) => numberOfLines >= threshold }
-          .sortWith(Ordering[BulkySource].gt)
-      }
+      files
+        .map(file => (IO.readLines(file).size + 1, file))
+        .filter { case (numberOfLines, _) => numberOfLines >= threshold }
+        .sortWith(Ordering[BulkySource].gt)
     }
 
-  override def projectSettings: Seq[Setting[_]] = Seq(
-    Test / bulkySources    := bulkySourcesTask(Test).evaluated,
-    Compile / bulkySources := bulkySourcesTask(Compile).evaluated,
-    bulkyThresholdInLines  := 100
+  override def projectSettings: Seq[Setting[_]] =
+    inConfig(Compile)(bulkySourcesSettings) ++ inConfig(Test)(bulkySourcesSettings)
+
+  private lazy val bulkySourcesSettings: Seq[Setting[_]] = Seq(
+    bulkyThresholdInLines := 100,
+    bulkySources          := bulkySourcesTask.evaluated,
   )
 
   override def requires: Plugins       = Plugins.empty
